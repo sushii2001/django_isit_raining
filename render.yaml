@@ -9,10 +9,10 @@ services:
     plan: free
     name: mysite
     runtime: python
-    buildCommand: './scripts/build.sh'
+    buildCommand: './scripts/deployment/build.sh'
     startCommand: 'python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
-      - key: DATABASE_URL
+      - key: SUPABASE_URL
         fromDatabase:
           name: mysitedb
           property: connectionString
