@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Hello Django on Render!</title>
+    <title>Weather Peek</title>
 
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -14,17 +14,63 @@
           crossorigin="anonymous">
 </head>
 <body>
-<main class="container">
-    <header class="container mt-4 mb-4">
-    <a href="https://render.com">
-        <img src="{% static "homepage/render-banner.png" %}" alt="Homepage banner" class="mw-100">
-    </a>
-    </header>
-    <div class="row text-center justify-content-center">
-        <div class="col">
-            <h1 class="display-4">Hello World!</h1>
+<main class="container d-flex flex-column align-items-center justify-content-center" style="min-height:100vh;background:linear-gradient(135deg,#e0eafc 0%,#cfdef3 100%);">
+    <div class="card shadow-lg p-4" style="max-width:440px;width:100%;border-radius:2rem;background:#fff;">
+        <div class="text-center mb-3">
+            <img src="{% static 'homepage/weatherpeek_logo.png' %}" alt="Weather Peek Logo" style="max-width:140px;margin-bottom:0.5rem;">
+            <h1 class="mt-2 mb-1" style="font-weight:800;font-size:2.4rem;letter-spacing:-1px;color:#222;">Weather Peek</h1>
+            <p class="text-muted mb-0" style="font-size:1.15rem;">Your instant weather glance</p>
+        </div>
+        <div class="weather-display text-center mb-4 pt-2 pb-2" style="background:#f7faff;border-radius:1.2rem;">
+            {% if weather %}
+                {% if weather == 'sunny' %}
+                    <div style="font-size:5.5rem;">☀</div>
+                    <div class="h3 mt-2 mb-0" style="font-weight:700;color:#f7b733;">Sunny</div>
+                {% elif weather == 'cloudy' %}
+                    <div style="font-size:5.5rem;">☁</div>
+                    <div class="h3 mt-2 mb-0" style="font-weight:700;color:#7f8fa6;">Cloudy</div>
+                {% elif weather == 'raining' %}
+                    <div style="font-size:5.5rem;">🌧</div>
+                    <div class="h3 mt-2 mb-0" style="font-weight:700;color:#00a8ff;">Raining</div>
+                {% else %}
+                    <div style="font-size:4.5rem;">❓</div>
+                    <div class="h3 mt-2 mb-0" style="font-weight:700;">Unknown</div>
+                {% endif %}
+                {% if location %}
+                    <div class="mt-2 text-muted" style="font-size:1.15rem;">in <span style="font-weight:600;">{{ location }}</span></div>
+                {% endif %}
+            {% else %}
+                <div class="mb-2" style="font-size:1.15rem;color:#888;">Enter a location to see the weather</div>
+            {% endif %}
+        </div>
+        <form method="get" class="mt-3 mb-2">
+            <div class="input-group input-group-lg">
+                <input type="text" name="location" class="form-control" placeholder="Enter city or area" value="{{ location|default:'' }}" style="border-radius:1.2rem 0 0 1.2rem;font-size:1.15rem;">
+                <button type="submit" class="btn btn-primary" style="border-radius:0 1.2rem 1.2rem 0;font-size:1.15rem;">Check</button>
+            </div>
+        </form>
+        <div class="mt-3 text-center text-muted" style="font-size:1rem;">
+            <span>Powered by <a href="https://openweathermap.org/" target="_blank">OpenWeather</a></span>
         </div>
     </div>
 </main>
+<script>
+if (!window.location.search.includes('location=')) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            // Use OpenWeather reverse geocoding to get city name
+            fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid={{ OPENWEATHER_API_KEY }}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.length > 0 && data[0].name) {
+                        document.querySelector('input[name="location"]').value = data[0].name;
+                    }
+                });
+        });
+    }
+}
+</script>
 </body>
 </html>
