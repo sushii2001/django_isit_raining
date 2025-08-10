@@ -20,3 +20,5 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
+      - key: OPENWEATHER_API_KEY
+        generateValue: true
