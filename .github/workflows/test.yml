@@ -29,5 +29,4 @@ jobs:
 
           - name: Run sanity tests
             run: |
-              python manage.py check
-              python manage.py test homepage
+              ./scripts/deployment/test.sh
