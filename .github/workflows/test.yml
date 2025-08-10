@@ -27,6 +27,11 @@ jobs:
               python -m pip install --upgrade pip
               pip install -r requirements.txt
 
+          - name: Set environment variables
+            run: |
+              echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+              echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+
           - name: Run sanity tests
             run: |
               ./scripts/deployment/test.sh
