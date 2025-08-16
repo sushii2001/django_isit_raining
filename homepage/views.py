@@ -10,9 +10,6 @@ def get_weather_state(city):
         data = response.json()
         weather_response = "unknown"
         if 'weather' in data and len(data['weather']) > 0:
-            print(f"DATA: {data}")
-            # {'coord': {'lon': 101.6865, 'lat': 3.1431}, 'weather': [{'id': 500, 'main': 'Rain', 'description': 'light rain', 'icon': '10d'}], 'base': 'stations', 'main': {'temp': 28.49, 'feels_like': 31.33, 'temp_min': 28.49, 'temp_max': 28.49, 'pressure': 1009, 'humidity': 68, 'sea_level': 1009, 'grnd_level': 996}, 'visibility': 10000, 'wind': {'speed': 1.4, 'deg': 218, 'gust': 1.6}, 'rain': {'1h': 1}, 'clouds': {'all': 100}, 'dt': 1754810722, 'sys': {'country': 'MY', 'sunrise': 1754781104, 'sunset': 1754825140}, 'timezone': 28800, 'id': 1733046, 'name': 'Kuala Lumpur', 'cod': 200}
-
             main_weather = data['weather'][0]['main'].lower()
             if "cloud" in main_weather:
                 weather_response = 'cloudy'
