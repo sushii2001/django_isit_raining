@@ -1,0 +1,95 @@
+/* Pillowtalk-inspired theme for Weather Peek */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e3e6f3 100%);
+    color: #23272f;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.card {
+    background: #fff;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(60, 72, 88, 0.10), 0 1.5px 4px rgba(60, 72, 88, 0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+h1, .h1, .display-4 {
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #23272f;
+}
+
+.weather-display {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+input.form-control, input.form-control-lg {
+    border-radius: 2rem !important;
+    border: none;
+    font-size: 1.15rem;
+    padding: 1.1rem 1.3rem;
+    background: transparent;
+    color: #23272f;
+    box-shadow: 0 0 0 2px #7f5af0;
+    transition: box-shadow 0.18s, background 0.18s;
+    outline: none;
+}
+input.form-control:focus, input.form-control-lg:focus {
+    background: #fff;
+    /* box-shadow remains the same as default, so highlight is always visible */
+    border: none;
+    outline: none;
+}
+/* Removed hover effect for input fields */
+input.form-control:active, input.form-control-lg:active {
+    background: #fff;
+    box-shadow: 0 0 0 2px #2cb67d;
+    border: none;
+    outline: none;
+}
+
+/* Fully rounded button for symmetry */
+.btn-primary {
+    background: linear-gradient(90deg, #7f5af0 0%, #2cb67d 100%);
+    border: none;
+    border-radius: 2rem !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.9rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(127,90,240,0.08);
+    transition: background 0.2s;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(90deg, #2cb67d 0%, #7f5af0 100%);
+}
+
+.text-muted {
+    color: #7b8494 !important;
+}
+
+::-webkit-input-placeholder { color: #b0b8c9; }
+::-moz-placeholder { color: #b0b8c9; }
+:-ms-input-placeholder { color: #b0b8c9; }
+::placeholder { color: #b0b8c9; }
+
+@media (max-width: 600px) {
+    .card {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+        border-radius: 1.2rem;
+    }
+    .weather-display {
+        padding: 1.2rem 0 1rem 0;
+    }
+    h1, .h1, .display-4 {
+        font-size: 1.5rem;
+    }
+}
